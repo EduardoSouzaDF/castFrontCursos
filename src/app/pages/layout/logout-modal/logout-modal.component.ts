@@ -15,7 +15,6 @@ export class LogoutModalComponent implements OnInit {
 
   logout() {
     $('#closeLogoutModal').click();
-    this.router.navigateByUrl('/login');
-    // this.router.navigate(['/login'],{skipLocationChange: true});
+    this.router.navigateByUrl('/logout');
   }
 }

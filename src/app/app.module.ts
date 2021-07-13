@@ -15,9 +15,15 @@ import { LoginComponent } from './pages/login/login.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {PasswordModule} from 'primeng/password';
-
-
-
+import { LoggedGuard } from './guards/ LoggedGuard';
+import { RestApiService } from './service/rest-api.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { AbstractService } from './service/abstract.service';
+import { HttpClientModule } from '@angular/common/http';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { LogoutComponent } from './pages/logout/logout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +33,8 @@ import {PasswordModule} from 'primeng/password';
     FooterComponent,
     TopBarComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +42,14 @@ import {PasswordModule} from 'primeng/password';
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
-    PasswordModule
+    PasswordModule,
+    HttpClientModule,
+    ToastModule,
+    BrowserAnimationsModule
+
+
   ],
-  providers: [],
+  providers: [LoggedGuard,RestApiService,HttpClient,AbstractService,ToastModule,ConfirmationService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

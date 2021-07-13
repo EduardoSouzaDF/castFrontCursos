@@ -88,6 +88,15 @@ export class AppComponent implements OnInit {
     });
   }
 
+
+  static getUser(){
+    if(localStorage.getItem('usuario') !== null){
+      // @ts-ignore
+      return JSON.parse(localStorage.getItem('usuario'));
+    }
+
+  }
+
   static initTheme() {
     initTheme();
   }
@@ -95,7 +104,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     AppComponent.initTheme();
     this.activeRoute.events.subscribe(this.onUrlChange.bind(this));
-   
+
   }
 
   onUrlChange(ev: any) {
