@@ -86,6 +86,10 @@ export class AppComponent implements OnInit {
       strong: 'Forte',
       passwordPrompt: 'Informe a senha',
     });
+
+    if(localStorage.getItem('usuario') == null){
+      this.login = true;
+    }
   }
 
 
@@ -108,15 +112,11 @@ export class AppComponent implements OnInit {
   }
 
   onUrlChange(ev: any) {
-    if (ev instanceof NavigationEnd) {
-      let url = ev.url;
-      if (url === '/login') {
-        this.login = true;
-        $('body').addClass('bg-gradient-primary');
-      } else {
-        $('body').removeClass('bg-gradient-primary');
-        this.login = false;
-      }
+    if(localStorage.getItem('usuario') == null){
+      this.login = true;
+    }else{
+      this.login = false;
     }
+
   }
 }

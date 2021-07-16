@@ -14,18 +14,17 @@ export class LoggedGuard implements CanActivate {
     let token = localStorage.getItem('token');
 
     if (token !== null ) {
-     await this.userService.auth().toPromise()
+    return  await this.userService.auth().toPromise()
         .then((e : any) => {
-          console.log(e);
+
           localStorage.setItem('usuario',JSON.stringify(e));
           return true;
         }).catch((error)=>{
-          console.log(error);
-          console.log('sssss');
-         return this.router.navigate(['/login'])
+
+         return this.router.navigate(['/login']);
         })
     }else{
-      return this.router.navigate(['/login'])
+      return this.router.navigate(['/login']);
     }
     return true;
   }

@@ -30,12 +30,12 @@ export class LoginComponent implements OnInit {
     if(this.login_form.valid){
       await this.userService.login(this.login_form.controls.email.value,this.login_form.controls.senha.value).toPromise()
       .then((res: any) =>{
-        console.log(res);
+
         localStorage.setItem('token', res?.token);
         this.router.navigate([ '/home']);
         this.messageService.add({severity:'success', summary:'Autenticação', detail:'Bem Vindo!'});
       }).catch((err: any) =>{
-        console.log('error');
+
        this.messageService.add({severity:'error', summary:'Autenticação', detail:'Usuário ou senha inválidos'});
       })
     }

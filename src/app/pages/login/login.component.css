@@ -1,3 +1,7 @@
 .p-inputtext.ng-valid{
  background-color:rgba(6, 240, 37, 0.26)
 }
+
+.loginBody{
+  margin-top:5%;
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+declare var window: any;
+
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -16,7 +18,8 @@ export class LogoutComponent implements OnInit {
    }
 
   ngOnInit() {
-    return this.router.navigate(['/login']);
+     this.router.navigate(['/login']);
+
   }
 
 }

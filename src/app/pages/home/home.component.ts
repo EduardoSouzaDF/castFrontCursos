@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/service/categoria.service';
+import { CursoService } from 'src/app/service/curso.service';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,18 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 export class HomeComponent implements OnInit {
 
   countCategoria = 0 ;
+  countCurso = 0 ;
 
-  constructor(private categoriaService:CategoriaService) { }
+  constructor(private categoriaService:CategoriaService, private cursoService:CursoService) { }
 
   async ngOnInit() {
-    await this.categoriaService.count().toPromise().then((res) =>{
-      console.log(res);
-    })
+    await this.categoriaService.count().toPromise().then((res: any) =>{
+      this.countCategoria = res?.count;
+    });
+
+    await this.cursoService.count().toPromise().then((res: any) =>{
+      this.countCurso = res?.count;
+    });
   }
 
 }

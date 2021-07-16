@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container loginBody">
 
   <!-- Outer Row -->
   <div class="row justify-content-center">
@@ -17,6 +17,7 @@
                 </div>
                 <form class="user" [formGroup]="login_form"  >
                   <div class="form-group">
+                    admin@admin.com
                     <input pInputText class="form-control form-control-user" type="text"
                       placeholder="Informe seu email ..." formControlName="email"
                       [class.ng-invalid]="!login_form.controls.email.valid"
@@ -26,6 +27,7 @@
 
                   </div>
                   <div class="form-group">
+                    adminadmin
                     <input class="form-control form-control-user" pPassword type="password" formControlName="senha"
                       [class.ng-invalid]="!login_form.controls.senha.valid"
                       placeholder="Informe a senha"
@@ -45,13 +47,13 @@
 
                 </form>
                 <hr>
-                <div class="text-center">
+                <!-- <div class="text-center">
                   <a class="small" routerLink='/forget'>Esqueceu a senha?</a>
                 </div>
                 <div class="text-center">
                   <a class="small" routerLink='/signup'>Crie sua conta!</a>
 
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

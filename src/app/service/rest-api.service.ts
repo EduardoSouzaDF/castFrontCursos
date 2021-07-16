@@ -5,6 +5,7 @@ import {HeaderValue} from '../models/headerValue';
 import { catchError, map, tap } from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 declare var window: any;
 declare var toastr: any;
@@ -113,15 +114,28 @@ export class RestApiService {
 
 
   public handleError(error: HttpErrorResponse) {
+    try {
 
-    if(error.status === 400){
-
-      try {
-        toastr.show(error?.error.userMessage,'Atenção',{position:'top-right',status:'info'});
-      } catch (error) {
-      }
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "5000000",
+          "hideDuration": "5000000",
+          "timeOut": "5000000",
+          "extendedTimeOut": "5000000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+      toastr["error"](error.error.error.message, "Atenção")
+    } catch (error) {
     }
-
     return throwError(error.message);
   }
 

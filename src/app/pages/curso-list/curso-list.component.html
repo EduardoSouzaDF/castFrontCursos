@@ -1,0 +1,142 @@
+<div class="container-fluid">
+  <p-card>
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="right" >
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText placeholder="Pesquisar" (keyup)="find()" [(ngModel)]="search" />
+      </span>
+      </ng-template>
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+          (click)="novoCurso()"></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="excluiSelecionados()"
+          [disabled]="!cursosSelecionados || !cursosSelecionados.length"></button>
+      </ng-template>
+    </p-toolbar>
+
+    <p-table [value]="cursos">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome</th>
+          <th>Alunos</th>
+          <th>Início</th>
+          <th>Término</th>
+          <th>Alunos</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-curso>
+        <tr>
+          <td>{{curso.descricao}}</td>
+          <td>{{curso.qtdAlunos}}</td>
+          <td>{{curso.inicio | date }}</td>
+          <td>{{curso.termino | date }}</td>
+          <td>{{curso.qtdAlunos }}</td>
+          <td>{{curso?.categoria?.descricao}}</td>
+          <td>
+            <button pButton pRipple type="button" icon="pi pi-pencil" (click)="editar(curso)" class="p-button-rounded p-button-danger"></button>
+            &nbsp;
+            <button pButton pRipple type="button" icon="pi pi-times-circle" (click)="excluir(curso)" class="p-button-rounded p-button-success"></button>
+
+          </td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </p-card>
+</div>
+
+
+
+
+
+<p-dialog    [contentStyle]="{'overflow': 'visible'}" [maximizable]="true" [style]="{width: '50vw' }" [(visible)]="cursoDialog"  header="Curso" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="form_curso"  >
+    <div class="p-fluid p-formgrid p-grid">
+
+      <div class="p-field p-col-12 p-md-12">
+        <label for="categoria">Categoria</label>
+        <p-dropdown [options]="categorias" [(ngModel)]="curso.categoriaId"
+        [emptyMessage]="'Sem categorias cadastradas'"
+        [emptyFilterMessage]="'Sem resultados'"
+        id="categoria"
+         optionLabel="descricao" [filter]="true" filterBy="descricao"
+         [showClear]="true" placeholder="Selecione"
+         [class.ng-invalid]="!form_curso.controls.categoriaId.valid"
+         [class.ng-valid]="form_curso.controls.categoriaId.valid"
+         [class.ng-dirty]="!form_curso.controls.categoriaId.valid"
+         formControlName="categoriaId"
+         >
+      </p-dropdown>
+      </div>
+
+      <div class="p-field p-col-12 p-md-12">
+        <label for="name">Nome</label>
+        <input type="text" pInputText id="name" [(ngModel)]="curso.descricao"
+        [class.ng-invalid]="!form_curso.controls.descricao.valid"
+         [class.ng-valid]="form_curso.controls.descricao.valid"
+         [class.ng-dirty]="!form_curso.controls.descricao.valid"
+         formControlName="descricao"
+        />
+      </div>
+
+
+      <div class="p-field p-col-12 p-md-6">
+        <label  for="inicio">Início</label>
+        <p-calendar id="inicio"   [(ngModel)]="curso.inicio"
+        dateFormat="dd/mm/yy"
+        [class.ng-invalid]="!form_curso.controls.inicio.valid"
+         [class.valid]="form_curso.controls.inicio.valid"
+         [class.ng-dirty]="!form_curso.controls.inicio.valid"
+         formControlName="inicio"
+
+        ></p-calendar>
+      </div>
+
+
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="termino">Término</label>
+        <p-calendar id="termino" [(ngModel)]="curso.termino"
+        dateFormat="dd/mm/yy"
+        [class.ng-invalid]="!form_curso.controls.termino.valid"
+         [class.ng-valid]="form_curso.controls.termino.valid"
+         [class.ng-dirty]="!form_curso.controls.termino.valid"
+         formControlName="termino"
+
+        ></p-calendar>
+      </div>
+
+
+      <div  *ngIf="!datesValid" class="p-field p-col-12 p-md-12">
+        Data de término deve ser maior ue a data de início!
+        </div>
+
+      <div  *ngIf="!messageDatas" class="p-field p-col-12 p-md-12">
+        Já existe curso para esse período
+        </div>
+
+      <div class="p-field p-col-12 p-md-2">
+        <label for="qtdAlnos">Alunos</label>
+        <p-inputNumber id="qtdAlnos" [(ngModel)]="curso.qtdAlunos"
+        [class.ng-valid]="form_curso.controls.qtdAlunos.valid"
+        formControlName="qtdAlunos"
+
+        ></p-inputNumber>
+      </div>
+    </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-warning" (click)="sairModal()"></button>
+    <button pButton pRipple label="Salvar" *ngIf="form_curso.valid" icon="pi pi-check" class="p-button-success" (click)="salvar()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

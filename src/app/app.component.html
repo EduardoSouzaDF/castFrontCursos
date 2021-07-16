@@ -1,22 +1,17 @@
-<div id="wrapper" *ngIf="!login" >
-  <app-sidebar></app-sidebar>
+<div id="wrapper"  >
+  <app-sidebar *ngIf="!login" ></app-sidebar>
   <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
+    <div id="content"  >
       <p-toast></p-toast>
-      <app-top-bar></app-top-bar>
+      <app-top-bar  *ngIf="!login"></app-top-bar>
       <router-outlet></router-outlet>
-    </div>
+    </div   >
   </div>
 </div>
-<app-scroll-to-top  *ngIf="!login"></app-scroll-to-top>
-<app-logout-modal  *ngIf="!login"></app-logout-modal>
+<app-scroll-to-top  *ngIf="!login" ></app-scroll-to-top>
+<app-logout-modal  *ngIf="!login" ></app-logout-modal>
 
 
-<div class="container"  *ngIf="login" >
-  <p-toast></p-toast>
-  <router-outlet></router-outlet>
-
-</div>
 
 
 
